@@ -29,6 +29,9 @@ python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'
 As i was getting an error for cudnn==8.0.1, i tried installing cudnn==7.4 using, 
 conda install -c anaconda cudnn=7.4
 
+pip install nvidia-pyindex
+pip install --upgrade nvidia-tensorrt
+
 pip3 install numpy matplotlib seaborn pandas python-dateutil pydicom SimpleITK nibabel scikit-image opencv-python vtk
 
 ##scipy is also required but cudnn 7.4 automatically installs that so no need to install again. (scipy 1.4.1)
