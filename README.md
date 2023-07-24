@@ -29,7 +29,7 @@ conda install -c anaconda cudnn=7.4
 
 pip3 install numpy matplotlib seaborn pandas python-dateutil pydicom SimpleITK nibabel scikit-image opencv-python vtk
 
-##sources might be helpful for later on:
+# sources might be helpful for later on:
 https://www.tensorflow.org/install/pip
 https://docs.anaconda.com/free/anaconda/applications/tensorflow/#python-2
 https://transang.me/cuda-cudnn-driver-gcc-tensorflow-python-version-compatibility-charts/
