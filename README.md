@@ -29,6 +29,8 @@ conda install -c anaconda cudnn=7.4
 
 pip3 install numpy matplotlib seaborn pandas python-dateutil pydicom SimpleITK nibabel scikit-image opencv-python vtk
 
+##scipy is also required but cudnn 7.4 automatically installs that so no need to install again. (scipy 1.4.1)
+
 # sources might be helpful for later on:
 1. https://www.tensorflow.org/install/pip
 2. https://docs.anaconda.com/free/anaconda/applications/tensorflow/#python-2
