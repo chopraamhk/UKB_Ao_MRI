@@ -10,6 +10,7 @@ module load cuda/11.8.0
 module load cudnn_for_cuda11/8.6.0
 pip install tensorflow==2.12.1
 python --version
+python3 demo_pipeline.py
 ```
 
 # Verify install:
