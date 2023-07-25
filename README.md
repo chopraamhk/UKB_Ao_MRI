@@ -1,6 +1,6 @@
 Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later for compatibility with TensorFlow's latest version (with cuda + cudnn).
 
-# UKB Aortic Magnetic Resonance Imaging Analysis
+# UKBB Aortic Magnetic Resonance Imaging Analysis
 *Requirements and installation* 
 ```
 module load Anaconda3/2023.03-1
