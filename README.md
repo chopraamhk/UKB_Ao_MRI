@@ -1,7 +1,7 @@
-Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later on..
+Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later on for the compatibility with tensorflow's latest version (with cuda + cudnn).
 
 # UKB_Aortic_Image_Analysis
-*Requirements and installation till now* 
+*Requirements and installation* 
 ```
 module load Anaconda3/2023.03-1
 conda create -n mycode
