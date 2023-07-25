@@ -1,4 +1,4 @@
-Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later on for compatibility with TensorFlow's latest version (with cuda + cudnn).
+Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later for compatibility with TensorFlow's latest version (with cuda + cudnn).
 
 # UKB Aortic Magnetic Resonance Imaging Analysis
 *Requirements and installation* 
