@@ -38,6 +38,9 @@ else:
   print("TensorFlow **IS NOT** using the GPU")
 ```
 
+```
+python3 deploy_network_ao.py --model UNet-LSTM --model_path /home/mchopra/wbai/ukbb_cardiac/models/UNet-LSTM_ao --data_dir /home/mchopra/wbai/ukbb_cardiac/images/validation/
+```
 
 # sources might be helpful for later on:
 1. https://www.tensorflow.org/install/pip
