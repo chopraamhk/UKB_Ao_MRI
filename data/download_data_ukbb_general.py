@@ -1,19 +1,5 @@
-# Copyright 2017, Wenjia Bai. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the 'License');
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an 'AS IS' BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
 """
-    The script downloads the cardiac MR images for a UK Biobank Application and
+    The script downloads the cardiac MR images (Aortic) for a UK Biobank Application and
     converts the DICOM into nifti images.
     """
 import os
@@ -25,24 +11,24 @@ import dateutil.parser
 
 if __name__ == '__main__':
     # Where the data will be downloaded
-    data_root = '/vol/vipdata/data/biobank/cardiac/Application_18545/data_path'
+    data_root = '/home/mchopra/ukb_data/imaging_data/MRIs'
 
     # Path to the UK Biobank utilities directory
     # The utility programmes can be downloaded at http://biobank.ctsu.ox.ac.uk/crystal/download.cgi
-    util_dir = '/vol/vipdata/data/biobank/cardiac/Application_18545/util_path'
+    util_dir = '/home/mchopra/ukb_data/biobank_utils'
 
     # The authentication file (application id + password) for downloading the data for a specific
     # UK Biobank application. You will get this file from the UK Biobank website after your
     # application has been approved.
-    ukbkey = '/homes/wbai/ukbkey'
+    ukbkey = '/home/mchopra/ukb_data/imaging_data/k74519r674295.key'
 
     # The spreadsheet which lists the anonymised IDs of the subjects.
     # You can download a very large spreadsheet from the UK Biobank website, which exceeds 10GB.
     # I normally first filter the spreadsheet, select only a subset of subjects with imaging data
     # and save them in a smaller spreadsheet.
-    csv_file = '/vol/vipdata/data/biobank/cardiac/Application_18545/downloaded/ukb9137_image_subset.csv'
-    df = pd.read_csv(os.path.join(csv_dir, csv_file), header=1)
-    data_list = df['eid']
+    csv_dir_path = '/home/mchopra/ukb_data/imaging_data/instance5.csv'
+    df = pd.read_csv(csv_dir_path, header=0)
+    data_list = df['eid'].tolist()
 
     # Download cardiac MR images for each subject
     start_idx = 0
@@ -62,10 +48,9 @@ if __name__ == '__main__':
         # Create a batch file for this subject
         batch_file = os.path.join(data_dir, '{0}_batch'.format(eid))
         with open(batch_file, 'w') as f_batch:
-            for j in range(20208, 20210):
+                j = 20210
                 # The field ID information can be searched at http://biobank.ctsu.ox.ac.uk/crystal/search.cgi
-                # 20208: Long axis heart images - DICOM Heart MRI
-                # 20209: Short axis heart images - DICOM Heart MRI
+                # 20210: Aortic Distensibility Images - DICOM Heart MRI
                 # 2.0 means the 2nd visit of the subject, the 0th data item for that visit.
                 # As far as I know, the imaging scan for each subject is performed at his/her 2nd visit.
                 field = '{0}-2.0'.format(j)
