@@ -1,23 +1,9 @@
-# Copyright 2017, Wenjia Bai. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the 'License');
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an 'AS IS' BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
 """
     The UK Biobank cardiac image converting module.
 
     This module reads short-axis and long-axis DICOM files for a UK Biobank subject,
     looks for the correct series (sometimes there are more than one series for one slice),
-    stack the slices into a 3D-t volume and save as a nifti image.
+    stack the slices into a 3D-t volume and save as a nifti image. ##edited for aortic_dist images
 
     pydicom is used for reading DICOM images. However, I have found that very rarely it could
     fail in reading certain DICOM images, perhaps due to the DICOM format, which has no standard
@@ -75,127 +61,17 @@ class Biobank_Dataset(object):
 
         # Find and sort the DICOM sub directories
         subdirs = sorted(os.listdir(input_dir))
-        sax_dir = []
-        lax_2ch_dir = []
-        lax_3ch_dir = []
-        lax_4ch_dir = []
-        sax_mix_dir = []
-        lax_mix_dir = []
         ao_dir = []
-        lvot_dir = []
-        flow_dir = []
-        flow_mag_dir = []
-        flow_pha_dir = []
-        shmolli_dir = []
-        shmolli_fitpar_dir = []
-        shmolli_t1map_dir = []
-        tag_dir = []
+       
         for s in subdirs:
-            m = re.match('CINE_segmented_SAX_b(\d*)$', s)
-            if m:
-                sax_dir += [(os.path.join(input_dir, s), int(m.group(1)))]
-            elif re.match('CINE_segmented_LAX_2Ch$', s):
-                lax_2ch_dir = os.path.join(input_dir, s)
-            elif re.match('CINE_segmented_LAX_3Ch$', s):
-                lax_3ch_dir = os.path.join(input_dir, s)
-            elif re.match('CINE_segmented_LAX_4Ch$', s):
-                lax_4ch_dir = os.path.join(input_dir, s)
-            elif re.match('CINE_segmented_SAX$', s):
-                sax_mix_dir = os.path.join(input_dir, s)
-            elif re.match('CINE_segmented_LAX$', s):
-                lax_mix_dir = os.path.join(input_dir, s)
-            elif re.match('CINE_segmented_Ao_dist$', s):
+            if re.match('CINE_segmented_Ao_dist$', s):
                 ao_dir = os.path.join(input_dir, s)
-            elif re.match('CINE_segmented_LVOT$', s):
-                lvot_dir = os.path.join(input_dir, s)
-            elif re.match('flow_250_tp_AoV_bh_ePAT@c$', s):
-                flow_dir = os.path.join(input_dir, s)
-            elif re.match('flow_250_tp_AoV_bh_ePAT@c_MAG$', s):
-                flow_mag_dir = os.path.join(input_dir, s)
-            elif re.match('flow_250_tp_AoV_bh_ePAT@c_P$', s):
-                flow_pha_dir = os.path.join(input_dir, s)
-            elif re.match('ShMOLLI_192i_SAX_b2s$', s):
-                shmolli_dir = os.path.join(input_dir, s)
-            elif re.match('ShMOLLI_192i_SAX_b2s_SAX_b2s_FITPARAMS$', s):
-                shmolli_fitpar_dir = os.path.join(input_dir, s)
-            elif re.match('ShMOLLI_192i_SAX_b2s_SAX_b2s_SAX_b2s_T1MAP$', s):
-                shmolli_t1map_dir = os.path.join(input_dir, s)
-            m = re.match('cine_tagging_3sl_SAX_b(\d*)s$', s)
-            if m:
-                tag_dir += [(os.path.join(input_dir, s), int(m.group(1)))]
+                break
 
-        if not sax_dir:
-            print('Warning: SAX subdirectories not found!')
-            if sax_mix_dir:
-                print('But a mixed SAX directory has been found. '
-                      'We will sort it into directories for each slice.')
-                list = sorted(os.listdir(sax_mix_dir))
-                d = dicom.read_file(os.path.join(sax_mix_dir, list[0]))
-                T = d.CardiacNumberOfImages
-                Z = int(np.floor(len(list) / float(T)))
-                for z in range(Z):
-                    s = os.path.join(input_dir, 'CINE_segmented_SAX_b{0}'.format(z))
-                    os.mkdir(s)
-                    for f in list[z * T:(z + 1) * T]:
-                        os.system('mv {0}/{1} {2}'.format(sax_mix_dir, f, s))
-                    sax_dir += [(s, z)]
-
-        if not lax_2ch_dir and not lax_3ch_dir and not lax_4ch_dir:
-            print('Warning: LAX subdirectories not found!')
-            if lax_mix_dir:
-                print('But a mixed LAX directory has been found. '
-                      'We will sort it into directories for 2Ch, 3Ch and 4Ch views.')
-                list = sorted(os.listdir(lax_mix_dir))
-                d = dicom.read_file(os.path.join(lax_mix_dir, list[0]))
-                T = d.CardiacNumberOfImages
-                if len(list) != 3 * T:
-                    print('Error: cannot split files into three partitions!')
-                else:
-                    lax_3ch_dir = os.path.join(input_dir, 'CINE_segmented_LAX_3Ch')
-                    os.mkdir(lax_3ch_dir)
-                    for f in list[:T]:
-                        os.system('mv {0}/{1} {2}'.format(lax_mix_dir, f, lax_3ch_dir))
-
-                    lax_4ch_dir = os.path.join(input_dir, 'CINE_segmented_LAX_4Ch')
-                    os.mkdir(lax_4ch_dir)
-                    for f in list[T:2 * T]:
-                        os.system('mv {0}/{1} {2}'.format(lax_mix_dir, f, lax_4ch_dir))
-
-                    lax_2ch_dir = os.path.join(input_dir, 'CINE_segmented_LAX_2Ch')
-                    os.mkdir(lax_2ch_dir)
-                    for f in list[2 * T:3 * T]:
-                        os.system('mv {0}/{1} {2}'.format(lax_mix_dir, f, lax_2ch_dir))
-
-        self.subdir = {}
-        if sax_dir:
-            sax_dir = sorted(sax_dir, key=lambda x:x[1])
-            self.subdir['sa'] = [x for x, y in sax_dir]
-        if lax_2ch_dir:
-            self.subdir['la_2ch'] = [lax_2ch_dir]
-        if lax_3ch_dir:
-            self.subdir['la_3ch'] = [lax_3ch_dir]
-        if lax_4ch_dir:
-            self.subdir['la_4ch'] = [lax_4ch_dir]
         if ao_dir:
             self.subdir['ao'] = [ao_dir]
-        if lvot_dir:
-            self.subdir['lvot'] = [lvot_dir]
-        if flow_dir:
-            self.subdir['flow'] = [flow_dir]
-        if flow_mag_dir:
-            self.subdir['flow_mag'] = [flow_mag_dir]
-        if flow_pha_dir:
-            self.subdir['flow_pha'] = [flow_pha_dir]
-        if shmolli_dir:
-            self.subdir['shmolli'] = [shmolli_dir]
-        if shmolli_fitpar_dir:
-            self.subdir['shmolli_fitpar'] = [shmolli_fitpar_dir]
-        if shmolli_t1map_dir:
-            self.subdir['shmolli_t1map'] = [shmolli_t1map_dir]
-        if tag_dir:
-            tag_dir = sorted(tag_dir, key=lambda x: x[1])
-            for x, y in tag_dir:
-                self.subdir['tag_{0}'.format(y)] = [x]
+        else:
+            print("Warning: Ao subdirectory not found!")
 
         self.cvi42_dir = cvi42_dir
 
