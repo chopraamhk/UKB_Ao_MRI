@@ -62,10 +62,11 @@ python3 deploy_network_ao.py --model UNet-LSTM --model_path /home/mchopra/wbai/u
 ```
 
 # Step 5: Generate the distensibility by runnning the code:
+```
 python3 eval_aortic_area.py ## contains quality measures
 
 python3 aorta_pass_quality_control.py
-
+```
 
 # sources might be helpful for later on:
 1. https://www.tensorflow.org/install/pip
