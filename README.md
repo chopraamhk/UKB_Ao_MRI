@@ -1,3 +1,5 @@
+# UKBB Aortic Magnetic Resonance Imaging Analysis
+
 Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later for compatibility with TensorFlow's latest version (with cuda + cudnn).
 
 # Step 1: Go to GPU
@@ -6,7 +8,6 @@ srun --pty --preserve-env -p gpu /bin/bash
 ```
 
 # Step 2: Create an environment
-# UKBB Aortic Magnetic Resonance Imaging Analysis
 *Requirements and installation* 
 ```
 module load Anaconda3/2023.03-1
