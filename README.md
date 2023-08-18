@@ -56,12 +56,12 @@ eid
 10000**
 so on..
 ```
-# Step 5: Download the models and run the code to generate the segmentation of MRI's
+# Step 4: Download the models and run the code to generate the segmentation of MRI's
 ```
 python3 deploy_network_ao.py --model UNet-LSTM --model_path /home/mchopra/wbai/ukbb_cardiac/models/UNet-LSTM_ao --data_dir /home/mchopra/wbai/ukbb_cardiac/images/validation/
 ```
 
-# Step 4: Generate the distensibility by runnning the code:
+# Step 5: Generate the distensibility by runnning the code:
 python3 eval_aortic_area.py ## contains quality measures
 
 python3 aorta_pass_quality_control.py
