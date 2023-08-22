@@ -16,6 +16,7 @@ conda activate mycode
 module load cuda/11.8.0
 module load cudnn_for_cuda11/8.6.0
 pip install tensorflow==2.12.1
+conda install -c conda-forge screen
 python --version
 python3 demo_pipeline.py
 ```
@@ -46,10 +47,17 @@ else:
 ```
 
 # Step 3: Get the .enc file, key file directory location and output with the field id and download the data. 
+Make sure that the paths is download_data_ukbb_general.py are correct. 
+data_root #where the data will be downloaded
+util_dir #ukbb utilities directory
+ukbkey #authentication file -> application id + password
+csv_dir_path #lists the anonymised ids of the subject
+
+extract.py code is to extract the eid of participants that will be downloaded
 ```
 python3 download_data_ukbb_general.py
 
-#the code will download all the images and convert them from DICOM to NIFTI files. Make sure to keep biobank_utils.py as it contains the functions that will help download.
+#the code will download all the images and convert them from DICOM to NIFTI files. Keep biobank_utils.py as it contains the functions that will help download.
 #extract.py contains the eid of participants that will be downloaded.
 #it looks like:
 eid
