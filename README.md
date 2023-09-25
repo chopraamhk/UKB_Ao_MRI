@@ -16,6 +16,7 @@ conda activate mycode
 module load cuda/11.8.0
 module load cudnn_for_cuda11/8.6.0
 pip install tensorflow==2.12.1
+conda install -c "conda-forge/label/cf201901" unzip
 conda install -c conda-forge screen
 python --version
 python3 demo_pipeline.py
@@ -48,6 +49,7 @@ else:
 
 # Step 3: Get the .enc file, key file directory location and output with the field id and download the data. 
 Make sure that the paths is download_data_ukbb_general.py are correct. 
+edit the download.py file by below path::
 data_root #where the data will be downloaded
 util_dir #ukbb utilities directory
 ukbkey #authentication file -> application id + password
