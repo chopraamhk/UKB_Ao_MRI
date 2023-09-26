@@ -77,7 +77,15 @@ python3 deploy_network_ao.py --model UNet-LSTM --model_path /home/mchopra/wbai/u
 ```
 python3 eval_aortic_area.py ## contains quality measures
 
-python3 aorta_pass_quality_control.py --data_dir <path of input data> --pressure_csv <path_of csv_file? --output_csv <path_of_output_file>
+python3 aorta_pass_quality_control.py --data_dir <path of input data> --pressure_csv <path_of csv_file> --output_csv <path_of_output_file>
+```
+
+```
+pressure_csv looks like :
+,"Central pulse pressure during PWA","Central pulse pressure during PWA"
+,"12678-2.0","12678-2.1"
+1,3,4
+2,2,3
 ```
 
 # sources might be helpful for later on:
