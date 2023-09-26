@@ -19,7 +19,8 @@ pip install tensorflow==2.12.1
 conda install -c "conda-forge/label/cf201901" unzip
 conda install -c conda-forge screen
 python --version
-python3 demo_pipeline.py
+pip3 install numpy scipy matplotlib seaborn pandas python-dateutil pydicom SimpleITK nibabel scikit-image opencv-python vtk
+#python3 demo_pipeline.py
 ```
 
 # Verify installation of tensorflow with GPU's:
