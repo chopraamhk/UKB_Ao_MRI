@@ -72,7 +72,7 @@ if __name__ == '__main__':
                                               os.path.join(dicom_dir, 'manifest.csv')))
             process_manifest(os.path.join(dicom_dir, 'manifest.csv'),
                              os.path.join(dicom_dir, 'manifest2.csv'))
-            df2 = pd.read_csv(os.path.join(dicom_dir, 'manifest2.csv'), error_bad_lines=False)
+            df2 = pd.read_csv(os.path.join(dicom_dir, 'manifest2.csv')) ##by deafult error_bad_lines = False
 
             # Patient ID and acquisition date
             pid = df2.at[0, 'patientid']
