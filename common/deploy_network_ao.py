@@ -181,7 +181,7 @@ if __name__ == '__main__':
                         # prob_idx: XYNTC
                         prob_idx = np.transpose(prob_idx, axes=(2, 3, 0, 1, 4))
 
-                        # Tile the over.ng probability maps
+                        # Tile the overlapping probability maps
                         prob[:, :, :, idx] += prob_idx[x_pre:x_pre + X, y_pre:y_pre + Y] * w
                         weight[:, :, :, idx] += w
 
