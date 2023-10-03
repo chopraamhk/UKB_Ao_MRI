@@ -2,6 +2,11 @@
 
 Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later for compatibility with TensorFlow's latest version (with cuda + cudnn).
 
+##to download tensorflow 1.15.0
+```
+conda create -n myenv -c conda-forge tensorflow-gpu=1.15
+```
+
 # Step 1: Go to GPU
 ```
 srun --pty --preserve-env -p gpu /bin/bash
