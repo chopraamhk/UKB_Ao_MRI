@@ -4,6 +4,7 @@ Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and deb
 
 # environment with tensorflow 1.15.0
 ```
+srun --pty --preserve-env -p gpu /bin/bash
 conda create -n tf -c conda-forge tensorflow-gpu=1.15
 conda activate tf
 pip install numpy scipy matplotlib seaborn pandas python-dateutil pydicom SimpleITK nibabel scikit-image opencv-python vtk
