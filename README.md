@@ -2,9 +2,11 @@
 
 Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later for compatibility with TensorFlow's latest version (with cuda + cudnn).
 
-##to download tensorflow 1.15.0
+# environment with tensorflow 1.15.0
 ```
-conda create -n myenv -c conda-forge tensorflow-gpu=1.15
+conda create -n tf -c conda-forge tensorflow-gpu=1.15
+conda activate tf
+pip install numpy scipy matplotlib seaborn pandas python-dateutil pydicom SimpleITK nibabel scikit-image opencv-python vtk
 ```
 
 # Step 1: Go to GPU
@@ -12,7 +14,7 @@ conda create -n myenv -c conda-forge tensorflow-gpu=1.15
 srun --pty --preserve-env -p gpu /bin/bash
 ```
 
-# Step 2: Create an environment
+# Step 2: Create an environment (the codes in the directory are compatible with tensorflow = 2.12.1)
 *Requirements and installation* 
 ```
 module load Anaconda3/2023.03-1
