@@ -19,7 +19,7 @@ srun --pty --preserve-env -p gpu /bin/bash
 *Requirements and installation* 
 ```
 module load Anaconda3/2023.03-1
-conda create -n mycode python=3
+conda create -n mycode python=3.9
 conda activate mycode
 module load cuda/11.8.0
 module load cudnn_for_cuda11/8.6.0
