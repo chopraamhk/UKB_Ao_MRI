@@ -83,9 +83,9 @@ python3 deploy_network_ao.py --model UNet-LSTM --model_path /home/mchopra/wbai/u
 
 # Step 5: Generate the distensibility by running the code:
 ```
-python3 eval_aortic_area.py ## contains quality measures
+python3 aorta_pass_quality_control.py ## contains quality measures
 
-python3 aorta_pass_quality_control.py --data_dir <path of input data> --pressure_csv <path_of csv_file> --output_csv <path_of_output_file>
+python3 eval_aortic_area.py --data_dir <path of input data> --pressure_csv <path_of csv_file> --output_csv <path_of_output_file>
 ```
 
 ```
