@@ -78,6 +78,8 @@ so on..
 ```
 # Step 4: Download the models and run the code to generate the segmentation of MRI's
 ```
+export TF_ENABLE_ONEDNN_OPTS=0 #oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`
+
 python3 deploy_network_ao.py --model UNet-LSTM --model_path /home/mchopra/wbai/ukbb_cardiac/models/UNet-LSTM_ao --data_dir /home/mchopra/wbai/ukbb_cardiac/images/validation/
 ```
 
