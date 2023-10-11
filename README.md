@@ -2,15 +2,16 @@
 
 Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later for compatibility with TensorFlow's latest version (with cuda + cudnn).
 
-# environment with tensorflow 1.15.0 (not recommended)
+# environment with tensorflow 1.15.0 (not recommended as a lot od functions have been deprecated and keras is included in the version tf2) 
+#conda will take care of the other cuda and cudnn requirements here.
 ```
 srun --pty --preserve-env -p gpu /bin/bash
 conda create -n tf -c conda-forge tensorflow-gpu=1.15
-conda activate tf
+conda activate tf 
 pip install numpy scipy matplotlib seaborn pandas python-dateutil pydicom SimpleITK nibabel scikit-image opencv-python vtk
 ```
 
-# Step 1: Go to GPU
+# Step 1: Go to GPU (it's an interactive gpu session - can avoid it by adding the environment directly to the bash script while running)
 ```
 srun --pty --preserve-env -p gpu /bin/bash
 ```
@@ -24,9 +25,9 @@ conda activate mycode
 module load cuda/11.8.0
 module load cudnn_for_cuda11/8.6.0
 pip install tensorflow==2.12.1
-conda install -c "conda-forge/label/cf201901" unzip
-conda install -c conda-forge screen
-python --version
+conda install -c "conda-forge/label/cf201901" unzip #unzip required for downloading script
+conda install -c conda-forge screen #for screen sessions or use tmux
+python --version #change in the python version can lead to incompatibility of tensorflow with GPUs.
 pip3 install numpy scipy matplotlib seaborn pandas python-dateutil pydicom SimpleITK nibabel scikit-image opencv-python vtk
 #python3 demo_pipeline.py
 ```
@@ -92,12 +93,14 @@ python3 aorta_pass_quality_control.py ## contains quality measures
 python3 eval_aortic_area.py --data_dir <path of input data> --pressure_csv <path_of csv_file> --output_csv <path_of_output_file>
 ```
 
+# RULE : ALWAYS REMEMBER THAT NA's ARE NOT ZEROS. 
+make sure the file is not adding zeros at the place of missing values
 ```
 pressure_csv looks like :
 ,"Central pulse pressure during PWA","Central pulse pressure during PWA"
-,"12678-2.0","12678-2.1"
-1,3,4
-2,2,3
+,"12678-2.0","12678-2.1","12678-2.3","12678-2.4",
+1,3,4,2,,
+2,2,3,,
 ```
 
 # sources might be helpful for later on:
