@@ -93,7 +93,7 @@ python3 aorta_pass_quality_control.py ## contains quality measures
 python3 eval_aortic_area.py --data_dir <path of input data> --pressure_csv <path_of csv_file> --output_csv <path_of_output_file>
 ```
 
-# RULE : ALWAYS REMEMBER THAT NA's ARE NOT ZEROS. 
+# RULE: NA's ARE NOT ZEROS. 
 make sure the file is not adding zeros at the place of missing values
 ```
 pressure_csv looks like :
