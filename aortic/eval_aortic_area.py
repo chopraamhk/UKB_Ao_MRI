@@ -23,7 +23,8 @@ if __name__ == '__main__':
     # (https://biobank.ctsu.ox.ac.uk/crystal/docs/vicorder_in_cmri.pdf) is that after the transfer, the DBP
     # keeps the same as the brachial DBP, but the SBP is different.
     df_info = pd.read_csv(args.pressure_csv, header=[0, 1], index_col=0)
-    central_pp = df_info['Central pulse pressure during PWA'][['12678-2.0', '12678-2.1']].mean(axis=1)
+    columns_to_include = ['12678-2.0' '12678-2.1' '12678-2.2' '12678-2.3' '12678-2.4' '12678-3.0' '12678-3.1' '12678-3.2' '12678-3.3' '12678-3.4']
+    central_pp = df_info['Central pulse pressure during PWA'][[columns_to_include]].mean(axis=1)
 
     # Discard central blood pressure < 10 mmHg
     central_pp[central_pp < 10] = np.nan
