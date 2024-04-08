@@ -2,6 +2,8 @@
 
 Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and debugged later for compatibility with TensorFlow's latest version (with cuda + cudnn).
 
+Reference : https://arxiv.org/abs/1808.00273
+
 # environment with tensorflow 1.15.0 (not recommended as a lot od functions have been deprecated and keras is included in the version tf2) 
 #conda will take care of the other cuda and cudnn requirements here.
 ```
