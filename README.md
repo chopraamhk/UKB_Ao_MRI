@@ -5,6 +5,8 @@ Code has been taken from ```https://github.com/baiwenjia/ukbb_cardiac``` and deb
 The below text is from the reference given below:
 To train the network end-to-end, we require the ground truth label map sequence across the time frames. However, the typical manual annotation is temporally sparse. For example, our dataset only has manual annotations at two time frames, end-diastole (ED) and end-systole (ES). In order to obtain the annotations at other time frames, we perform label propagation. Non-rigid image registration is performed to estimate the motion between each pair of successive time frames. Based on the motion estimate, the label map at each time frame is propagated from either ED or ES annotations, whichever is closer. For segmentation accuracy, we evaluate the Dice overlap metric and the mean contour distance between automated segmentation and
 manual annotation at ED and ES time frames.
+
+We performed experiments on an aortic MR image set of 500 subjects, acquired from the UK Biobank. The typical image size is 240×196 pixel with the spatial resolution of 1.6×1.6 mm2. Each image sequence consists of 100 time frames, covering the cardiac cycle. Two experienced image analysts manually annotated the ascending aorta (AAo) and descending aorta (DAo) at ED and ES time frames. The image set was randomly split into a training set of 400 subject
 Reference : https://arxiv.org/abs/1808.00273
 
 # environment with tensorflow 1.15.0 (not recommended as a lot od functions have been deprecated and keras is included in the version tf2) 
